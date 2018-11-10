@@ -8,6 +8,8 @@
 
 # Additional basic string exercises
 
+import math
+
 # D. verbing
 # Given a string, if its length is at least 3,
 # add 'ing' to its end.
@@ -18,8 +20,12 @@
 
 
 def verbing(s):
-    """Your code goes here.  Edit this docstring."""
-    return
+    """Adds 'ing' or 'ly' to words with len > 3"""
+    if len(s) > 3:
+        if s.endswith('ing'):
+            return s + 'ly'
+        return s + 'ing'
+    return s
 
 
 # E. not_bad
@@ -31,8 +37,13 @@ def verbing(s):
 # So 'This dinner is not that bad!' yields:
 # This dinner is good!
 def not_bad(s):
-    """Your code goes here.  Edit this docstring."""
-    return
+    """Replaces the first 'not...bad' with 'good'"""
+    notIndex = s.find('not')
+    badIndex = s.find('bad')
+    if notIndex >= 0 and notIndex < badIndex:
+        return s[:notIndex] + 'good' + s[badIndex + 3:]
+    return s
+         
 
 
 # F. front_back
@@ -43,8 +54,12 @@ def not_bad(s):
 # Given 2 strings, a and b, return a string of the form
 #  a-front + b-front + a-back + b-back
 def front_back(a, b):
-    """Your code goes here.  Edit this docstring."""
-    return
+    """splits to strings in half (head, body) and 
+    aHead bHead aBody bBody (without spaces)
+    """
+    aSplit = math.ceil(len(a) / 2)
+    bSplit = math.ceil(len(b) / 2)
+    return "{}{}{}{}".format(a[:aSplit], b[:bSplit], a[aSplit:], b[bSplit:])
 
 
 # Provided simple test() function used in main() to print
@@ -55,8 +70,7 @@ def test(got, expected):
         prefix = ' OK '
     else:
         prefix = '  X '
-    print('{} got: {} expected: {}'.format(prefix, repr(got), repr(expected)))
-
+    print('{} got: {} expected: {}'.format(prefix, repr(got), repr(expected))) 
 
 # main() calls the above functions with interesting inputs,
 # using the above test() to check if the result is correct or not.
